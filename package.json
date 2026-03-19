@@ -1,0 +1,154 @@
+{
+  "name": "copilot-context-plus",
+  "displayName": "Copilot Context Plus",
+  "description": "Enhance GitHub Copilot with context from all open files",
+  "version": "1.0.0",
+  "publisher": "feelgood4everai",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Machine Learning",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "copilot",
+    "github",
+    "ai",
+    "context",
+    "intellisense"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/feelgood4everai/copilot-context-plus-v2.git"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilotContextPlus.refresh",
+        "title": "Refresh Context",
+        "icon": "$(refresh)",
+        "category": "Copilot Context Plus"
+      },
+      {
+        "command": "copilotContextPlus.inject",
+        "title": "Inject Context at Cursor",
+        "category": "Copilot Context Plus"
+      },
+      {
+        "command": "copilotContextPlus.clearInjection",
+        "title": "Clear Injected Context",
+        "category": "Copilot Context Plus"
+      },
+      {
+        "command": "copilotContextPlus.openPanel",
+        "title": "Open Context Panel",
+        "category": "Copilot Context Plus"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "copilotContextPlus.contextPanel",
+          "name": "Copilot Context",
+          "when": "copilotContextPlus.enabled"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "copilotContextPlus",
+          "title": "Copilot Context Plus",
+          "icon": "$(symbol-class)"
+        }
+      ]
+    },
+    "views": {
+      "copilotContextPlus": [
+        {
+          "id": "copilotContextPlus.contextPanel",
+          "name": "Context"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Copilot Context Plus",
+      "properties": {
+        "copilotContextPlus.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Copilot Context Plus"
+        },
+        "copilotContextPlus.maxTokens": {
+          "type": "number",
+          "default": 6000,
+          "description": "Maximum tokens to send to Copilot"
+        },
+        "copilotContextPlus.includePatterns": {
+          "type": "array",
+          "default": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.py", "**/*.go"],
+          "description": "File patterns to include in context aggregation"
+        },
+        "copilotContextPlus.excludePatterns": {
+          "type": "array",
+          "default": ["**/node_modules/**", "**/dist/**", "**/build/**", "**/*.test.ts"],
+          "description": "File patterns to exclude from context aggregation"
+        },
+        "copilotContextPlus.debounceMs": {
+          "type": "number",
+          "default": 100,
+          "description": "Debounce time for context updates (ms)"
+        },
+        "copilotContextPlus.showRelationships": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show file relationships in context panel"
+        }
+      }
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "copilotContextPlus.refresh"
+        },
+        {
+          "command": "copilotContextPlus.inject"
+        },
+        {
+          "command": "copilotContextPlus.clearInjection"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "copilotContextPlus.refresh",
+          "when": "view == copilotContextPlus.contextPanel",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "eslint": "^8.55.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "gpt-tokenizer": "^2.1.2"
+  }
+}

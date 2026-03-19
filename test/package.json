@@ -1,0 +1,12 @@
+{
+  "name": "copilot-context-plus",
+  "version": "1.0.0",
+  "description": "Tests for Copilot Context Plus",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0"
+  }
+}
